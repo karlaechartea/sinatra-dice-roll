@@ -8,16 +8,8 @@ use(BetterErrors::Middleware)
 BetterErrors.application_root = __dir__
 BetterErrors::Middleware.allow_ip!('0.0.0.0/0.0.0.0')
 
-get("/homepage") do
-  "
-  <h1>Dice Roll</h1>
-  <ul>
-    <li><a href=\"/dice/2/6\">Roll two 6-sided dice</a></li>
-    <li><a href=\"/dice/2/10\">Roll two 10-sided dice</a></li>
-    <li><a href=\"/dice/1/10\">Roll one 10-sided dice</a></li>
-    <li><a href=\"/dice/5/4\">Roll five 4-sided dice</a></li>
-  </ul>
-  "
+get("/") do
+  erb(:elephant)
 end
 
 get("/dice/2/6") do
@@ -25,10 +17,9 @@ get("/dice/2/6") do
   second_dice = rand(1..6)
   sum = first_dice + second_dice
 
-  outcome = "You rolled a #{first_dice} and a #{second_disc} for a total of #{sum}."
+  @outcome = "You rolled a #{first_dice} and a #{second_dice} for a total of #{sum}."
 
-  "<h1>2d6</h1>
-  <p>#{outcome}</p>"
+  erb(:two_six)
 end
 
 get("/dice/2/10") do
@@ -36,19 +27,17 @@ get("/dice/2/10") do
   second_dice = rand(1..10)
   sum = first_dice + second_dice
 
-  outcome = "You rolled a #{first_dice} and a #{second_dice} for a total of #{sum}"
+  @outcome = "You rolled a #{first_dice} and a #{second_dice} for a total of #{sum}"
 
-  "<h1>2d10</h1>
-  <p>#{outcome}</p>"
+  erb(:two_ten)
 end
 
 get("/dice/1/10") do
   dice = rand(1..10)
 
-  outcome = "You rolled a #{dice}"
+  @outcome = "You rolled a #{dice}"
+  erb(:one_ten)
 
-  "<h1>1d10</h1>
-  <p>#{outcome}</p>"
 end
 
 get("/dice/5/4") do
@@ -60,7 +49,7 @@ get("/dice/5/4") do
 
   sum = first_dice + second_dice + third_dice + fourth_dice + fifth_dice
 
-  outcome = "You rolled a #{first_dice}, a #{second_dice}, a #{third_dice}, a #{fourth_dice}, and a #{fifth_dice}, for a total of #{sum}"
-"<h1>5d4</h1>
-  <p>#{outcome}</p>"
+  @outcome = "You rolled a #{first_dice}, a #{second_dice}, a #{third_dice}, a #{fourth_dice}, and a #{fifth_dice}, for a total of #{sum}"
+
+  erb(:five_four)
 end
