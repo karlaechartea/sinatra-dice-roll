@@ -32,11 +32,11 @@ get("/dice/2/10") do
   erb(:two_ten)
 end
 
-get("/dice/1/10") do
-  dice = rand(1..10)
+get("/dice/1/20") do
+  @dice = rand(1..20)
 
-  @outcome = "You rolled a #{dice}"
-  erb(:one_ten)
+  @outcome = "You rolled a #{@dice}"
+  erb(:one_twenty)
 
 end
 
@@ -52,4 +52,16 @@ get("/dice/5/4") do
   @outcome = "You rolled a #{first_dice}, a #{second_dice}, a #{third_dice}, a #{fourth_dice}, and a #{fifth_dice}, for a total of #{sum}"
 
   erb(:five_four)
+end
+
+get("/dice/100/6") do
+  @rolls = []
+
+  100.times do
+    dice = rand(1..6)
+
+    @rolls.push(dice) 
+  end
+
+  erb(:one_hundred_six)
 end
